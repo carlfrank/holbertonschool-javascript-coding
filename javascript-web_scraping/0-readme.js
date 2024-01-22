@@ -13,7 +13,7 @@ function readFileContent(filePath) {
     });
 }
 
-// Getting the file path from command line arguments
+
 const filePath = process.argv[2];
 
 // Calling the function with the provided file path
