@@ -3,7 +3,7 @@ const fs = require('fs');
 
 // Function to read and print file content
 function readFileContent(filePath) {
-    fs.readFile(filePath, 'utf8', (err, data) => {
+    fs.readFile(filePath, 'utf-8', (err, data) => {
         if (err) {
             // Printing the error object if an error occurs
             console.error(err);
