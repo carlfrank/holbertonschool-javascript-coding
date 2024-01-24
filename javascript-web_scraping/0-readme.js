@@ -1,3 +1,4 @@
+#!/usr/bin/node
 const fs = require('fs');
 
 // Function to read and print file content
