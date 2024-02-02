@@ -1,40 +1,50 @@
-// 2-read_file.js
 const fs = require('fs');
 
 function countStudents(path) {
-    try {
-        // Attempt to read the file synchronously
-        const data = fs.readFileSync(path, { encoding: 'utf8' });
-        
-        // Split the data into lines and filter out any empty lines
-        const lines = data.split('\n').filter(line => line.trim());
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, 'utf8', (err, data) => {
+      if (err) {
+        reject(Error('Cannot load the database'));
+        return;
+      }
+      const response = [];
+      let msg;
 
-        // Remove the header row
-        lines.shift();
+      const content = data.toString().split('\n');
 
-        const students = lines.map(line => {
-            const [firstName, , field] = line.split(',');
-            return { firstName, field };
-        });
+      let students = content.filter((item) => item);
 
-        console.log(`Number of students: ${students.length}`);
+      students = students.map((item) => item.split(','));
 
-        // Group students by field
-        const fields = {};
-        students.forEach(student => {
-            if (!fields[student.field]) {
-                fields[student.field] = [];
-            }
-            fields[student.field].push(student.firstName);
-        });
+      const NUMBER_OF_STUDENTS = students.length ? students.length - 1 : 0;
+      msg = `Number of students: ${NUMBER_OF_STUDENTS}`;
+      console.log(msg);
 
-        // Log details for each field
-        Object.entries(fields).forEach(([field, names]) => {
-            console.log(`Number of students in ${field}: ${names.length}. List: ${names.join(', ')}`);
-        });
-    } catch (error) {
-        throw new Error('Cannot load the database');
-    }
+      response.push(msg);
+
+      const fields = {};
+      for (const i in students) {
+        if (i !== 0) {
+          if (!fields[students[i][3]]) fields[students[i][3]] = [];
+
+          fields[students[i][3]].push(students[i][0]);
+        }
+      }
+
+      delete fields.field;
+
+      for (const key of Object.keys(fields)) {
+        msg = `Number of students in ${key}: ${
+          fields[key].length
+        }. List: ${fields[key].join(', ')}`;
+
+        console.log(msg);
+
+        response.push(msg);
+      }
+      resolve(response);
+    });
+  });
 }
 
 module.exports = countStudents;
