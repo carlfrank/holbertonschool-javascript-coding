@@ -51,9 +51,6 @@ Open a pull request against the original holbertonschool-javascript-coding/Node_
 License
 This project is licensed under the MIT License - see the LICENSE file in the root directory for details.
 
-Contact
-Your Name - [Insert Your Contact Information]
 Project Link: https://github.com/carlfrank/holbertonschool-javascript-coding/Node_JS_basic
 
-
-Make sure to replace `[Insert Your Contact Information]` with your actual contact details. Review and customize the content to ensure it accurately reflects the goals, setup instructions, and structure of your Node.js basics project.
+.
